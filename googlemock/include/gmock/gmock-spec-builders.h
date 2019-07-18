@@ -1389,7 +1389,7 @@ class ActionResultHolder : public UntypedActionResultHolderBase {
   }
 
   // Prints the held value as an action's result to os.
-  virtual void PrintAsActionResult(::std::ostream* os) const {
+  virtual void PrintAsActionResult(::std::ostream* os) const override {
     *os << "\n          Returns: ";
     // T may be a reference type, so we don't use UniversalPrint().
     UniversalPrinter<T>::Print(result_.Peek(), os);
@@ -1434,7 +1434,7 @@ class ActionResultHolder<void> : public UntypedActionResultHolderBase {
  public:
   void Unwrap() { }
 
-  virtual void PrintAsActionResult(::std::ostream* /* os */) const {}
+  virtual void PrintAsActionResult(::std::ostream* /* os */) const override {}
 
   // Performs the given mock function's default action and returns ownership
   // of an empty ActionResultHolder*.

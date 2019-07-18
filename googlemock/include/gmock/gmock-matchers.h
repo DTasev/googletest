@@ -195,14 +195,14 @@ class MatcherInterfaceAdapter : public MatcherInterface<const T&> {
       : impl_(impl) {}
   virtual ~MatcherInterfaceAdapter() { delete impl_; }
 
-  virtual void DescribeTo(::std::ostream* os) const { impl_->DescribeTo(os); }
+  virtual void DescribeTo(::std::ostream* os) const override { impl_->DescribeTo(os); }
 
-  virtual void DescribeNegationTo(::std::ostream* os) const {
+  virtual void DescribeNegationTo(::std::ostream* os) const override {
     impl_->DescribeNegationTo(os);
   }
 
   virtual bool MatchAndExplain(const T& x,
-                               MatchResultListener* listener) const {
+                               MatchResultListener* listener) const override {
     return impl_->MatchAndExplain(x, listener);
   }
 
@@ -1079,14 +1079,14 @@ class ComparisonBase {
    public:
     explicit Impl(const Rhs& rhs) : rhs_(rhs) {}
     virtual bool MatchAndExplain(
-        Lhs lhs, MatchResultListener* /* listener */) const {
+        Lhs lhs, MatchResultListener* /* listener */) const override {
       return Op()(lhs, rhs_);
     }
-    virtual void DescribeTo(::std::ostream* os) const {
+    virtual void DescribeTo(::std::ostream* os) const override {
       *os << D::Desc() << " ";
       UniversalPrint(rhs_, os);
     }
-    virtual void DescribeNegationTo(::std::ostream* os) const {
+    virtual void DescribeNegationTo(::std::ostream* os) const override {
       *os << D::NegatedDesc() <<  " ";
       UniversalPrint(rhs_, os);
     }
